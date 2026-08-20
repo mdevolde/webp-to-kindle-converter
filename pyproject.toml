@@ -1,0 +1,151 @@
+[project]
+name = "convert_manga_to_kindle"
+version = "0.0.1"
+requires-python = ">=3.14"
+description = "Convert a list of webp (from various sources) into a kindle compatible format."
+readme = { file = "README.md", content-type = "text/markdown" }
+license = "GPL-3.0-only"
+license-files = ["LICENSE"]
+authors = [
+    { name = "mdevolde", email = "martin.devolder2@gmail.com" }
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: 3.15",
+    "Operating System :: Microsoft :: Windows",
+    "Topic :: File Formats",
+]
+keywords = ["python", "manga", "webp", "kcc", "concert", "kindle"]
+
+dependencies = [
+    "requests>=2.34.2",
+    "beautifulsoup4>=4.12",
+    "Pillow>=11.3.0",
+    "psutil>=7.2.2",
+    "python-slugify>=8.0.4,<9.0.0",
+    "packaging>=26.2",
+    "mozjpeg-lossless-optimization>=1.2.0",
+    "natsort>=8.4.0",
+    "numpy>=1.22.4",
+    "PyMuPDF>=1.18.0",
+]
+
+[project.urls]
+repository = "https://github.com/mdevolde/webp-to-kindle-converter.git"
+
+[dependency-groups]
+test = [
+    "pytest",
+]
+quality = [
+    "mypy==2.3.0",
+    "ruff==0.15.22",
+]
+
+
+[project.scripts]
+convert_manga_to_kindle = "convert_manga_to_kindle.__main__:main"
+
+[build-system]
+requires = ["uv_build>=0.12.1,<0.13"]
+build-backend = "uv_build"
+
+[tool.uv]
+exclude-newer = "7 days"
+required-version = ">=0.12.1,<0.13"
+
+[tool.ruff]
+line-length = 88
+include = ["src/**/*.py"]
+
+[tool.ruff.lint]
+select = [
+    "A",      # Built-in shadowing and variable shadowing checks
+    "ANN",    # Type annotation presence and quality checks
+    "ARG",    # Unused function and method arguments
+    "ASYNC",  # Asyncio and asynchronous programming issues
+    "B",      # Likely bugs and dangerous patterns (flake8-bugbear)
+    "BLE",    # Blind exception handling (e.g. bare except)
+    "COM",    # Trailing commas consistency
+    "C4",     # Unnecessary or suboptimal collection constructions
+    "C90",    # McCabe complexity checks
+    "D",      # Docstring conventions and style (pydocstyle)
+    "DTZ",    # Naive datetime usage and timezone issues
+    "E",      # pycodestyle errors (PEP 8 violations)
+    "EM",     # Exception message formatting issues
+    "ERA",    # Commented-out dead code detection
+    "F",      # Pyflakes logical and static analysis errors
+    "FA",     # Future-compatible typing annotations
+    "FBT",    # Boolean positional argument "traps"
+    "FIX",    # TODO, FIXME, XXX comment detection
+    "FLY",    # Prefer f-strings over str.format()
+    "FURB",   # Refactoring and modernization suggestions (refurb)
+    "G",      # Logging format and logging call issues
+    "I",      # Import sorting and organization (isort)
+    "ICN",    # Import alias naming conventions
+    "INP",    # Missing __init__.py package checks
+    "N",      # PEP 8 naming conventions (pep8-naming)
+    "PERF",   # Performance anti-patterns
+    "PGH",    # Pygrep-hooks rules and miscellaneous checks
+    "PIE",    # Unnecessary or non-pythonic code patterns
+    "PL",     # Pylint-derived checks
+    "PT",     # Pytest style and correctness checks
+    "PTH",    # Prefer pathlib over os/path utilities
+    "Q",      # Quote style consistency
+    "RET",    # Return statement consistency and simplification
+    "RSE",    # Raise statement improvements
+    "RUF",    # Ruff-specific rules
+    "S",      # Security issues and insecure code patterns (bandit)
+    "SLF",    # Access to private members
+    "SLOT",   # __slots__ usage checks
+    "SIM",    # Code simplification opportunities
+    "TC",     # Type-checking block optimizations
+    "TCH",    # Move typing-only imports into TYPE_CHECKING blocks
+    "TID",    # Import restriction and tidiness rules
+    "TRY",    # try/except structure improvements
+    "T10",    # Debugger breakpoint detection
+    "T20",    # print/pprint statement detection
+    "UP",     # Python syntax and API modernization (pyupgrade)
+    "W",      # pycodestyle warnings
+    "YTT",    # Unsafe or outdated sys.version checks
+]
+ignore = [
+    "COM812", # Missing trailing comma in confict with formatter
+    "D203",   # Has to choose between D203 and D211 (No blank line before class docstring)
+    "D213",   # Has to choose between D213 and D212 (Multi-line docstring should start at the first line)
+    "FBT001", # Positional boolean arguments. Fix these in next breaking change release
+    "FBT002", # Default positional boolean arguments. Fix these in next breaking change release
+    "TRY301", # Raise an exception in a try block that is caught by the except block. There is a workaround for this in the codebase
+]
+
+[tool.ruff.lint.per-file-ignores]
+"src/convert_manga_to_kindle/__main__.py" = ["T201"] # Allow usage of print in the CLI entry point
+
+[tool.mypy]
+files = ["src"]
+disallow_any_decorated = true
+disallow_any_explicit = true
+disallow_any_expr = true
+disallow_any_generics = true
+disallow_any_unimported = true
+disallow_subclassing_any = true
+disallow_untyped_calls = true
+disallow_untyped_decorators = true
+disallow_untyped_defs = true
+extra_checks = true
+no_implicit_optional = true
+no_implicit_reexport = true
+pretty = true
+show_error_codes = true
+strict_equality = true
+strict_equality_for_none = true
+warn_redundant_casts = true
+warn_return_any = true
+warn_unreachable = true
+warn_unused_configs = true
+warn_unused_ignores = true
